@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Cereva" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- res/values/themes.xml -->
+    <style name="Theme.MyApp" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+
+</resources>

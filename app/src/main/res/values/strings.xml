@@ -1,0 +1,197 @@
+<resources>
+    <string name="app_name">Cereva</string>
+    <string name="service_running_title">Service is running in background</string>
+    <string name="service_running_message">service running</string>
+    <!--
+        This string is used for square devices and overridden by hello_world in
+        values-round/strings.xml for round devices.
+         -->
+    <string-array name="reminder_messages">
+        <item>"Today, you see a child laughing with delight. The sound is contagious, and you find yourself smiling too. Take a moment to appreciate the simple joy around you."</item>
+        <item> "Imagine a stranger holding the door open for you with a warm smile. You thank them, and they nod kindly. Feel the warmth of that small gesture brighten your day." </item>
+        <item> "You notice a beautiful flower blooming in an unexpected place. Take a deep breath and let its colors and fragrance lift your spirits." </item>
+        <item> "Picture yourself in line at a coffee shop. The person behind you compliments your outfit. You thank them, and it feels like a shared moment of kindness." </item>
+        <item> "Imagine getting an unexpected call or message from a friend, simply to say hello. Feel the joy of being remembered and cherished." </item>
+        <item> "You hold the door open for someone, and they give you a heartfelt 'Thank you!' Appreciate the small kindness you offered and received." </item>
+        <item> "Today, while walking, you notice a bird singing cheerfully. Pause, listen, and let its melody brighten your mood." </item>
+        <item> "Visualize yourself helping someone who looks lost by offering directions. Their gratitude makes you feel light and happy." </item>
+        <item> "Imagine finding a beautifully written quote in a book. It speaks to you deeply, inspiring joy and reflection." </item>
+        <item> "You see someone picking up litter and throwing it away. Feel gratitude for the goodness in people’s hearts." </item>
+        <item> "Today, when you step outside, you meet a friendly stranger. You exchange warm smiles. You compliment their hairstyle, 'Your hair looks great today!' They thank you, beaming. Visualize this joyful connection brightening your day" </item>
+        <item> "Today, you see a child laughing with delight. The sound is contagious, and you find yourself smiling too. Take a moment to appreciate the simple joy around you." </item>
+        <item> "Imagine a stranger holding the door open for you with a warm smile. You thank them, and they nod kindly. Feel the warmth of that small gesture brighten your day." </item>
+        <item> "You notice a beautiful flower blooming in an unexpected place. Take a deep breath and let its colors and fragrance lift your spirits." </item>
+        <item> "Picture yourself in line at a coffee shop. The person behind you compliments your outfit. You thank them, and it feels like a shared moment of kindness." </item>
+        <item> "Imagine getting an unexpected call or message from a friend, simply to say hello. Feel the joy of being remembered and cherished." </item>
+        <item> "You hold the door open for someone, and they give you a heartfelt 'Thank you!' Appreciate the small kindness you offered and received." </item>
+        <item> "Today, while walking, you notice a bird singing cheerfully. Pause, listen, and let its melody brighten your mood." </item>
+        <item> "Visualize yourself helping someone who looks lost by offering directions. Their gratitude makes you feel light and happy" </item>
+        <item> "Imagine finding a beautifully written quote in a book. It speaks to you deeply, inspiring joy and reflection." </item>
+        <item> "You see someone picking up litter and throwing it away. Feel gratitude for the goodness in people’s hearts." </item>
+        <item> "Imagine receiving a random compliment from a stranger. Let it remind you of the beauty others see in you." </item>
+        <item> "Picture yourself smiling at someone and watching as their face lights up. Embrace the shared happiness." </item>
+        <item> "You see a vibrant rainbow after a rain shower. Marvel at the colors and let them fill you with hope." </item>
+        <item> "Imagine finding a cozy spot in a park where you can relax and enjoy nature. Feel the peace settling within you." </item>
+        <item> "A barista writes a happy face on your coffee cup. Appreciate this small act and let it make you smile." </item>
+        <item> "You come across a friendly dog wagging its tail. Take a moment to enjoy its pure happiness and feel your spirits lift." </item>
+        <item> "Imagine receiving a kind email or message from a coworker thanking you. Let it remind you of the value you bring to others." </item>
+        <item> "Picture yourself complimenting someone on their positive energy. They thank you sincerely, and you feel the warmth of their gratitude." </item>
+        <item> "Today, while walking, you feel the sun on your skin. Appreciate its warmth and let it bring you peace." </item>
+        <item> "You see a stranger picking up something you dropped. Feel grateful for their kindness and the small moments of connection." </item>
+        <item> "Imagine discovering a new song that makes you feel alive and joyful. Let the music fill you with energy" </item>
+        <item> "" </item>
+        <item> "A child waves at you from across the street. Wave back and appreciate the sweet simplicity of human connection." </item>
+        <item> "Picture someone helping you carry something heavy. Feel the relief and appreciation for their support" </item>
+        <item> "You share a genuine laugh with someone you just met. Let the warmth of laughter fill your heart" </item>
+        <item> "Imagine meeting an old friend and feeling instantly at ease. Embrace the joy of reconnecting with someone special." </item>
+        <item> "Picture a stranger complimenting your smile. Let their words remind you of the beauty you bring into the world." </item>
+        <item> "You find a perfect place to watch the sunset. Relax and let the colors of the sky fill you with wonder." </item>
+        <item> "Imagine receiving a handwritten note from a loved one. Cherish the care and thoughtfulness behind each word." </item>
+        <item> "Picture yourself helping someone in a small way, like sharing an umbrella. Feel the warmth of kindness." </item>
+        <item> "You hear someone singing softly, lost in their own world. Let their joy remind you to embrace simple pleasures." </item>
+        <item> "Imagine being surrounded by flowers, each with a different color and fragrance. Let their beauty fill you with peace." </item>
+        <item> "Picture yourself being surprised with a warm hug from a friend. Feel the comfort and connection in that embrace." </item>
+        <item> "You receive a compliment on something you worked hard on. Let it remind you that your efforts are seen and appreciated." </item>
+        <item> "Imagine feeling a cool breeze on a warm day. Breathe it in and let it refresh and invigorate you." </item>
+        <item> "Picture finding a handwritten message of encouragement left for someone else. Feel inspired to spread kindness." </item>
+        <item> "Today, you notice a beautiful cloud formation in the sky. Pause and enjoy the quiet beauty above you." </item>
+        <item> "You hear someone share good news about their life. Share in their joy and let it uplift your own spirit." </item>
+        <item> "Imagine yourself complimenting someone’s laugh. Their happiness fills you with warmth and light." </item>
+        <item> "Picture a stranger sharing a knowing smile with you over a funny situation. Enjoy this silent connection." </item>
+        <item> "You find a hidden garden full of colorful flowers. Let the tranquility of the space wash over you." </item>
+        <item> "Imagine seeing a couple sharing a warm moment together. Appreciate the love and connection in the world." </item>
+        <item> "Today, you find a quote that resonates with you deeply. Let its wisdom stay with you and bring you peace." </item>
+        <item> "Picture receiving a kind gesture from a stranger, like someone letting you go ahead in line. Appreciate the small act." </item>
+        <item> "Imagine seeing someone dance happily on their own. Let their joy remind you of the beauty in spontaneity." </item>
+        <item> "You help someone in a small way, like holding a door open. Let the gratitude in their smile brighten your day." </item>
+        <item> "Imagine coming across an inspiring artwork that moves you. Let it remind you of the creativity within each of us." </item>
+        <item> "Picture finding a quiet spot to enjoy your favorite drink. Relish in the peace of the moment just for you." </item>
+        <item> "Today, a friendly barista smiles and remembers your name. Feel the warmth of being noticed and remembered." </item>
+        <item> "You receive a compliment on something unique about you. Let it remind you to appreciate your individuality." </item>
+        <item> "Imagine hearing a beautiful piece of music that resonates deeply. Let it uplift and inspire you." </item>
+        <item> "Picture sharing a smile with a stranger as you pass each other. Feel the joy of a momentary connection." </item>
+        <item> "You see an elderly couple holding hands. Let their lifelong love and connection warm your heart." </item>
+        <item> "Imagine finding a quote in a book that speaks to you. Let its wisdom bring clarity and peace to your thoughts." </item>
+        <item> "Today, someone says thank you for a small gesture. Let their appreciation remind you of the impact of kindness." </item>
+        <item> "Picture yourself taking a walk surrounded by trees and nature. Let the beauty of the world soothe your soul." </item>
+        <item> "You hear laughter from a nearby group of friends. Share in their joy and feel connected to the happiness around you." </item>
+        <item> "Imagine helping someone cross the street safely. Their gratitude reminds you of the value in helping others." </item>
+        <item> "Picture receiving a simple 'Good morning' greeting from a neighbor. Feel the warmth of community." </item>
+        <item> "Today, you hear a beautiful story from a stranger. Feel grateful for the connections we can find in every interaction." </item>
+        <item> "Imagine someone thanking you for a piece of advice you gave. Their appreciation fills you with purpose." </item>
+        <item> "Picture discovering a quiet, beautiful spot you've never noticed before. Let the peace of the place settle within you." </item>
+        <item> "Today, you find a beautiful feather on the ground. Appreciate its lightness and delicate beauty." </item>
+        <item> "Imagine a stranger offering to help you with something. Feel the comfort of shared humanity." </item>
+        <item> "Picture someone giving you a genuine compliment. Let it remind you that you are valued and seen." </item>
+        <item> "You see a child giving their parent a big hug. Enjoy the warmth of witnessing such pure love." </item>
+        <item> "Imagine a close friend saying they appreciate having you in their life. Let their words fill you with gratitude." </item>
+        <item> "Today, you see a butterfly fluttering past. Pause and marvel at its beauty and grace." </item>
+        <item> "Picture someone noticing you’ve had a hard day and offering support. Feel the comfort of their understanding." </item>
+        <item> "Imagine receiving a compliment on your kindness. Let it remind you of the positive impact you have on others." </item>
+        <item> "You see someone comforting a friend. Feel inspired by the power of compassion and connection." </item>
+        <item> "Imagine helping someone by sharing a small piece of advice. Their gratitude fills you with a sense of purpose." </item>
+        <item> "Picture a stranger giving you a friendly nod or wave. Enjoy this small but meaningful connection." </item>
+        <item> "Today, you find a stone with a beautiful pattern. Admire its uniqueness and let it ground you." </item>
+        <item> "Imagine someone appreciating your sense of humor. Let their laughter remind you of the joy you bring to others." </item>
+        <item> "Picture witnessing someone being kind to an animal. Feel inspired by their gentleness and care." </item>
+        <item> "You see two friends taking a joyful photo together. Appreciate the shared happiness of those around you." </item>
+        <item> "Imagine discovering a handwritten note of kindness left for a stranger. Let it remind you of the good in the world." </item>
+        <item> "Today, you see a child playing with a pet, full of laughter. Enjoy their innocent joy and let it uplift you." </item>
+        <item> "Picture a loved one saying they’re grateful for you. Let their words fill you with warmth and love." </item>
+        <item> "Imagine seeing a beautiful sunrise. Let the light of a new day bring hope and positivity." </item>
+        <item> "Picture someone sharing a beautiful memory with you. Feel honored by their openness." </item>
+        <item> "Today, you see a couple dancing together in the street. Share in their joy and let it bring a smile to your face." </item>
+        <item> "Imagine a stranger helping someone pick up something they dropped. Appreciate the kindness in others." </item>
+        <item> "You find a cozy spot to read or relax. Enjoy the tranquility and take a deep breath." </item>
+        <item> "Picture someone giving you an unexpected compliment on your personality. Let it brighten your day." </item>
+        <item> "Today, you share a heartfelt conversation with a friend. Feel grateful for the depth of your connection." </item>
+        <item> "Imagine hearing a song that brings back happy memories. Let it remind you of beautiful moments in your life." </item>
+        <item> "You find a little note from a friend saying how much they appreciate you. Let it fill you with joy and gratitude." </item>
+        <item> "Picture a kind stranger offering to help with something small. Feel grateful for their consideration." </item>
+        <item> "Today, you witness a stranger giving a flower to someone. Appreciate the beauty of simple gestures." </item>
+        <item> "Imagine hearing laughter from a loved one. Let their happiness fill you with warmth and peace." </item>
+        <item> "You meet a new friend who shares similar interests. Appreciate the joy of finding a kindred spirit." </item>
+        <item> "Picture someone noticing something unique about you and complimenting it. Feel valued and seen." </item>
+        <item> "Today, you receive unexpected praise for something you did. Let it fill you with pride and confidence." </item>
+        <item> "Imagine discovering a quiet place where you feel at ease. Enjoy the peace it brings." </item>
+        <item> "You see a child and their pet playing with pure joy. Let it remind you of the beauty in simple happiness." </item>
+        <item> "Picture a loved one saying they’re proud of you. Let their words lift your spirits." </item>
+        <item> "Imagine someone telling you that you made their day better. Feel the warmth of knowing you made a difference." </item>
+        <item> "Today, you find yourself inspired by a small act of kindness. Let it encourage you to share more kindness in the world." </item>
+        <item> "You find a comforting message in a book. Let its words stay with you and bring you peace." </item>
+        <item> "Imagine the most beautiful sunset you've ever seen. Picture yourself there, feeling the warmth of the colors and the peace filling your heart." </item>
+        <item> "Recall the softest blanket you've ever wrapped yourself in. Now imagine snuggling up in it, feeling its warmth and comfort all around you." </item>
+        <item> "Think of the sound of rain gently tapping on a window. Picture yourself listening to it, feeling cozy and peaceful, as if the whole world is at rest." </item>
+        <item> "Remember the smell of freshly baked bread. Imagine breathing it in deeply, savoring the comforting warmth and richness in the air." </item>
+        <item> "Picture a place where you felt completely at peace. Imagine standing there now, surrounded by that same calmness and beauty." </item>
+        <item> "Recall the laughter of a close friend. Imagine hearing it again, letting the joy and warmth of that moment fill your heart." </item>
+        <item> "Think of a moment when you were surrounded by nature, like a forest or a beach. Picture yourself there, feeling connected and alive." </item>
+        <item> "Remember the best compliment you ever received. Imagine hearing it again and let that feeling of appreciation fill you with warmth." </item>
+        <item> "Picture a sunny day with a gentle breeze. Imagine yourself there, feeling the sun on your skin and the wind gently caressing your face." </item>
+        <item> "Recall a time you felt incredibly proud of yourself. Imagine feeling that pride again, letting it fill you with confidence." </item>
+        <item> "Think of a moment when someone showed you unexpected kindness. Picture it, feeling grateful and inspired to pass it on." </item>
+        <item> "Remember the taste of a sweet fruit, perfectly ripe. Imagine biting into it again, savoring its sweetness and freshness." </item>
+        <item> "Picture yourself walking barefoot on warm sand. Feel each grain between your toes and the gentle warmth grounding you." </item>
+        <item> "Imagine standing on a mountaintop, looking at a beautiful view. Breathe in the fresh air and let the vastness fill you with awe." </item>
+        <item> "Recall a time you danced with joy. Imagine dancing again, feeling free, light, and joyful as if nothing else matters." </item>
+        <item> "Think of the soft glow of a candle in a dim room. Picture it now, feeling calm as the warm light fills the space." </item>
+        <item> "Remember a moment when someone you love hugged you tightly. Imagine that embrace, feeling safe, loved, and connected." </item>
+        <item> "Picture yourself lying in a field of flowers. Breathe in their fragrance, feeling surrounded by beauty and peace." </item>
+        <item> "Think of the sound of waves gently crashing on the shore. Imagine sitting there, letting the rhythm soothe your soul." </item>
+        <item> "Recall a time you laughed uncontrollably. Picture yourself laughing again, feeling light, happy, and carefree." </item>
+        <item> "Imagine a cool drink on a hot day. Feel its refreshing chill as it cools you from the inside out." </item>
+        <item> "Picture yourself in a cozy cabin during a snowfall. Look out the window, feeling warm, peaceful, and safe inside." </item>
+        <item> "Think of a time you felt truly understood. Imagine that feeling again, feeling seen, heard, and valued." </item>
+        <item> "Recall a moment you accomplished something big. Imagine the pride and excitement filling you up again." </item>
+        <item> "Picture a beautiful butterfly landing near you. Watch it closely, marveling at its delicate colors and graceful movements." </item>
+        <item> "Imagine standing under a clear, star-filled sky. Feel the wonder and awe as you look up, connected to the vast universe." </item>
+        <item> "Remember the smell of fresh coffee or tea in the morning. Imagine taking a deep breath, savoring its warmth and comfort." </item>
+        <item> "Picture yourself wrapped in your favorite sweater. Feel its softness and warmth surrounding you like a gentle hug." </item>
+        <item> "Recall the feeling of a gentle rain on your face. Imagine standing in it, feeling refreshed and alive." </item>
+        <item> "Imagine walking through a field of tall grass. Feel the softness brushing against your skin as you breathe in the earthy scent." </item>
+        <item> "Think of the best sleep you've ever had. Picture yourself drifting off, wrapped in peace and complete relaxation." </item>
+        <item> "Remember the sound of birds singing in the morning. Imagine listening to them now, feeling peaceful and awake." </item>
+        <item> "Picture a loved one smiling at you. Feel the warmth and happiness of their love and the joy of being together." </item>
+        <item> "Imagine yourself sitting by a crackling fireplace. Feel its warmth and listen to the comforting sounds as you relax." </item>
+        <item> "Recall a favorite childhood game. Picture yourself playing it, feeling light, joyful, and full of wonder." </item>
+        <item> "Think of a clear blue sky on a beautiful day. Imagine yourself looking up, feeling free and full of possibility." </item>
+        <item> "Remember the joy of learning something new. Imagine the excitement and curiosity filling you as you explore." </item>
+        <item> "Picture yourself in a library, surrounded by books. Feel the excitement of endless stories and knowledge at your fingertips." </item>
+        <item> "Imagine a gentle massage relaxing every part of your body. Let the comfort and peace wash over you completely." </item>
+        <item> "Think of your favorite scent in the world. Picture yourself surrounded by it, feeling grounded and uplifted." </item>
+        <item> "Recall the taste of a delicious dessert you loved. Imagine savoring each bite, feeling the joy of indulgence." </item>
+        <item> "Picture a quiet beach at sunrise. Feel the calm and the soft light as you stand there, breathing in peace." </item>
+        <item> "Imagine the feeling of warm sunshine after a cold day. Let it melt away any tension, filling you with comfort." </item>
+        <item> "Remember the joy of giving someone a heartfelt gift. Picture their smile, feeling the warmth of generosity." </item>
+        <item> "Think of the soft purr of a content cat. Imagine petting it, feeling its warmth and your own calmness." </item>
+        <item> "Picture yourself watching a soft snowfall. Feel the peace and purity of the snowflakes drifting down around you." </item>
+        <item> "Recall a time you felt truly in the moment. Imagine being there again, feeling calm, clear, and present." </item>
+        <item> "Imagine taking a deep breath in a fresh forest. Smell the trees, feel the cool air, and let it energize you." </item>
+        <item> "Remember the first time you visited a place you loved. Imagine that excitement and wonder filling you up." </item>
+        <item> "Picture a quiet, moonlit night. Feel the calm of the world resting under the gentle light of the moon." </item>
+        <item> "Think of the sound of a loved one’s voice. Imagine hearing it again, feeling comforted and connected." </item>
+        <item> "Recall the feeling of grass under your bare feet. Imagine walking across it, feeling grounded and free." </item>
+        <item> "Imagine floating on calm water. Feel the gentle support, letting go of tension and worries." </item>
+        <item> "Picture a beautiful flower garden. Smell the blooms and let their vibrant colors fill you with joy." </item>
+        <item> "Remember a time when someone expressed gratitude for you. Imagine hearing it again and feeling appreciated." </item>
+        <item> "Think of a warm bath on a cool day. Imagine sinking in, feeling every bit of warmth and relaxation." </item>
+        <item> "Picture the first sight of the ocean. Feel the vastness and beauty inspiring awe and freedom." </item>
+        <item> "Recall a delicious homemade meal. Imagine savoring each flavor and feeling the comfort of home." </item>
+        <item> "Imagine watching a sunrise over a quiet city. Feel the peaceful energy of a new day unfolding." </item>
+        <item> "Picture a fresh snowfall untouched by footprints. Feel the calm and beauty of the pristine landscape." </item>
+        <item> "Think of a time you watched fireworks. Imagine the colors lighting up the sky, filling you with wonder." </item>
+        <item> "Recall the smell of fresh herbs. Imagine holding them, breathing in their earthy, refreshing scent." </item>
+        <item> "Imagine taking a nap under a shady tree. Feel the coolness, listening to the gentle rustle of leaves." </item>
+        <item> "Remember a surprise that made you happy. Picture it again, feeling the excitement and joy of the moment." </item>
+        <item> "Picture yourself walking through a quiet, misty forest. Feel the mystery and calm of nature surrounding you." </item>
+        <item> "Imagine a cozy blanket around you on a rainy day. Feel its warmth, hearing the gentle sound of rain." </item>
+        <item> "Recall a day when you felt completely happy and content. Picture it, feeling that same joy again." </item>
+        <item> "Think of the scent of vanilla. Imagine it filling the air around you, warm and comforting." </item>
+        <item> "Picture yourself sitting by a calm river. Feel the tranquility of the water flowing gently past." </item>
+        <item> "Imagine biting into a crisp apple. Taste its sweetness and feel its refreshing crunch." </item>
+        <item> "Recall the softness of fresh sheets. Imagine lying on them, feeling comforted and at ease." </item>
+        <item> "Think of a garden filled with butterflies. Imagine standing among them, feeling joy and lightness." </item>
+        <item> "Picture yourself listening to a beautiful song that moves you. Let the music fill you with emotion." </item>
+        <item> "Imagine the smell of a fresh pine tree in winter. Breathe it in, feeling refreshed and alive." </item>
+    </string-array>
+</resources>
