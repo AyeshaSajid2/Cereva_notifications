@@ -148,6 +148,7 @@ import androidx.work.WorkerParameters
 import androidx.core.app.NotificationCompat
 import android.app.NotificationManager
 import android.app.NotificationChannel
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import com.fremanrobots.cereva.R
@@ -164,7 +165,7 @@ class ReminderWorker(context: Context, params: WorkerParameters) : CoroutineWork
             val startTime = inputData.getString("startTime") ?: return@withContext Result.failure()
             val endTime = inputData.getString("endTime") ?: return@withContext Result.failure()
 
-            Log.d("ReminderWorker", "Notification triggered: $startTime to $endTime.")
+            Log.d("ReminderWorker", "Notification triggered: $day for $startTime to $endTime.")
 
             // Fetch a random motivational message
             val messages = applicationContext.resources.getStringArray(R.array.reminder_messages)
@@ -173,7 +174,7 @@ class ReminderWorker(context: Context, params: WorkerParameters) : CoroutineWork
             // Display notification
             showNotification(
                 applicationContext,
-                title = "Motivation Reminder",
+                title = "Cerebral Co-Pilot",
                 message = randomMessage
             )
 
@@ -198,6 +199,11 @@ class ReminderWorker(context: Context, params: WorkerParameters) : CoroutineWork
                 channelId, "Reminders", NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Scheduled reminder notifications."
+                // Set the custom sound
+                setSound(
+                    Uri.parse("android.resource://${applicationContext.packageName}/raw/res_notification"),
+                    audioAttributes
+                )
             }
             notificationManager.createNotificationChannel(channel)
         }

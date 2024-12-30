@@ -8,18 +8,24 @@ import java.time.format.DateTimeFormatter
 class PreferencesManager(context: Context) {
 
     private val sharedPreferences = context.getSharedPreferences("reminder_prefs", Context.MODE_PRIVATE)
-    private val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
     // Get the selected days from shared preferences
+// Fetch the selected days from SharedPreferences
     fun getSelectedDays(): List<String> {
-        val selectedDays = sharedPreferences.getStringSet("selected_days", emptySet())?.toList() ?: emptyList()
-        Log.d("PreferencesManager", "Fetched selected days: $selectedDays")
-        return selectedDays
+        val selectedDaysSet = sharedPreferences.getStringSet("selected_days", emptySet())
+
+        if (selectedDaysSet == null || selectedDaysSet.isEmpty()) {
+            Log.d("PreferencesManager", "No selected days found.")
+        } else {
+            Log.d("PreferencesManager", "Fetched selected days: $selectedDaysSet")
+        }
+
+        return selectedDaysSet?.toList() ?: emptyList()
     }
 
     // Get the frequency from shared preferences
     fun getFrequency(): Int {
-        val frequency = sharedPreferences.getInt("frequency", 1)  // Default to 1
+        val frequency = sharedPreferences.getInt("selected_frequency", 0)  // Default to 1
         Log.d("PreferencesManager", "Fetched frequency: $frequency")
         return frequency
     }

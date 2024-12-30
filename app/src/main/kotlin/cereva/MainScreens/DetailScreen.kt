@@ -9,6 +9,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -38,73 +39,86 @@ fun DetailScreen() {
     Log.d("DetailScreen", "Frequency: $frequency")
     Log.d("DetailScreen", "Intervals: $intervals")
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(horizontal = 16.dp)
     ) {
-        // Days Container
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
-            elevation = CardDefaults.cardElevation(8.dp)
+        Column(
+            modifier = Modifier
+                .align(Alignment.Center) // Center the column vertically and horizontally
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center // Center the content inside the column
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = "Days:",
-                    style = TextStyle(fontSize = 20.sp, color = Color.White)
-                )
-                // Display the selected days as a comma-separated string
-                BasicText(
-                    text = if (selectedDays.isNotEmpty()) selectedDays.joinToString(", ") else "No days selected",
-                    style = TextStyle(fontSize = 16.sp, color = Color.Gray)
-                )
+            Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
+
+            // Days Container
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF4CAF50)), // Green color
+                elevation = CardDefaults.cardElevation(8.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Days:",
+                        style = TextStyle(fontSize = 20.sp, color = Color.White)
+                    )
+                    BasicText(
+                        text = if (selectedDays.isNotEmpty()) selectedDays.joinToString(", ") else "No days selected",
+                        style = TextStyle(fontSize = 16.sp, color = Color.White)
+                    )
+                }
             }
-        }
 
-        // Frequency Container
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
-            elevation = CardDefaults.cardElevation(8.dp)
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = "Frequency:",
-                    style = TextStyle(fontSize = 20.sp, color = Color.White)
-                )
-                BasicText(
-                    text = "$frequency Minutes",
-                    style = TextStyle(fontSize = 16.sp, color = Color.Gray)
-                )
+            // Frequency Container
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF4CAF50)), // Green color
+                elevation = CardDefaults.cardElevation(8.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Frequency:",
+                        style = TextStyle(fontSize = 20.sp, color = Color.White)
+                    )
+                    BasicText(
+                        text = "$frequency Minutes",
+                        style = TextStyle(fontSize = 16.sp, color = Color.White)
+                    )
+                }
             }
-        }
 
-        // Display Intervals (with safe data)
-        intervals.forEachIndexed { index, interval ->
-            val startTimeString = interval["start"]?.toString() ?: return@forEachIndexed
-            val endTimeString = interval["end"]?.toString() ?: return@forEachIndexed
+            // Display Intervals (with safe data)
+            intervals.forEachIndexed { index, interval ->
+                val startTimeString = interval["start"]?.toString() ?: return@forEachIndexed
+                val endTimeString = interval["end"]?.toString() ?: return@forEachIndexed
 
-            // Format and display time slots in safe way
-            val formattedSlot = formatInterval(startTimeString, endTimeString)
-            if (formattedSlot != null) {
-                // Slot Display Container
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = Color.DarkGray),
-                    elevation = CardDefaults.cardElevation(8.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = "Slot ${index + 1}:",
-                            style = TextStyle(fontSize = 20.sp, color = Color.White)
-                        )
-                        BasicText(
-                            text = formattedSlot,
-                            style = TextStyle(fontSize = 16.sp, color = Color.Gray)
-                        )
+                // Format and display time slots in safe way
+                val formattedSlot = formatInterval(startTimeString, endTimeString)
+                if (formattedSlot != null) {
+                    // Slot Display Container
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF4CAF50)), // Green color
+                        elevation = CardDefaults.cardElevation(8.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Text(
+                                text = "Slot ${index + 1}:",
+                                style = TextStyle(fontSize = 20.sp, color = Color.White)
+                            )
+                            BasicText(
+                                text = formattedSlot,
+                                style = TextStyle(fontSize = 16.sp, color = Color.White)
+                            )
+                        }
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package cereva.utills
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -17,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import cereva.ui.theme.MediumGreen
 import com.fremanrobots.cereva.R
@@ -56,12 +54,12 @@ fun SplashScreen(navController: NavController) {
             enter = fadeIn(animationSpec = tween(1000)),
             exit = fadeOut(animationSpec = tween(1000))
         ) {
-            Box(modifier = Modifier.padding(top = 250.dp))
+            Box(modifier = Modifier.padding(top = 150.dp))
             {
                 Text(
                     text = "Cereva",
                     color = MediumGreen,
-                    fontSize = 30.sp,
+                    fontSize = 38.sp,
                     fontWeight = FontWeight.Bold
                 )
             }

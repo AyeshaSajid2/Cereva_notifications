@@ -7,13 +7,10 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -31,7 +28,7 @@ fun EditIntervalsDialog(
     onSaveIntervals: () -> Unit,
     onCancel: () -> Unit
 ) {
-    var updatedIntervals by remember { mutableStateOf(intervals) }
+    val updatedIntervals by remember { mutableStateOf(intervals) }
     var showStartTimePicker by remember { mutableStateOf(false) }
     var showEndTimePicker by remember { mutableStateOf(false) }
     var selectedStartTime by remember { mutableStateOf(LocalTime.now()) }
@@ -42,6 +39,8 @@ fun EditIntervalsDialog(
 
     // Time Picker Dialogs
     if (showStartTimePicker) {
+        Toast.makeText(context, "Start time must be in the future", Toast.LENGTH_SHORT).show()
+
         val timePickerDialog = TimePickerDialog(
             context,
             { _: TimePicker, hourOfDay: Int, minute: Int ->
@@ -66,8 +65,11 @@ fun EditIntervalsDialog(
                 showEndTimePicker = false
                 if (intervalBeingEditedIndex == -1) {
                     // Adding new interval
-                    updatedIntervals.clear() // Clear existing intervals
-                    updatedIntervals.add(mapOf("start" to selectedStartTime, "end" to selectedEndTime))
+                    if (updatedIntervals.size < 3) {
+                        updatedIntervals.add(mapOf("start" to selectedStartTime, "end" to selectedEndTime))
+                    } else {
+                        Toast.makeText(context, "You can only add up to 3 intervals", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     // Editing existing interval
                     updatedIntervals[intervalBeingEditedIndex] = mapOf("start" to selectedStartTime, "end" to selectedEndTime)
