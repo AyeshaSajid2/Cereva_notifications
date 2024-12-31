@@ -1,6 +1,5 @@
 package cereva.MainScreens
 
-
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -13,8 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
-
+import cereva.utills.PreferencesManager
 
 @Composable
 fun DaySelectionDialog(
@@ -22,9 +20,10 @@ fun DaySelectionDialog(
     onSave: (List<String>) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val sharedPreferences = context.getSharedPreferences("reminder_prefs", Context.MODE_PRIVATE)
+    val preferencesManager = PreferencesManager(context)
+
     // Retrieve the saved selected days from shared preferences
-    val savedSelectedDays = sharedPreferences.getStringSet("selected_days", emptySet())?.toList() ?: emptyList()
+    val savedSelectedDays = preferencesManager.getSelectedDays()
 
     var selectedState by remember { mutableStateOf(savedSelectedDays.toSet()) }
 
@@ -34,22 +33,19 @@ fun DaySelectionDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             TextButton(onClick = {
-                // Log selected days before saving
                 Log.d("DaySelection", "Days selected: ${selectedState.toList()}")
 
-                // Save days to preferences
-                saveSelectedDaysToPreferences(context, selectedState.toList())
+                // Save days using PreferencesManager
+                preferencesManager.saveSelectedDays(selectedState.toList())
 
-                // Notify the parent component (e.g., the screen) that the save operation is complete
-                onSave(selectedState.toList()) // This can be used to update UI or other state
+                // Notify parent about saved days
+                onSave(selectedState.toList())
 
                 // Close the dialog
                 onDismiss()
 
-                // Show a Toast message for the user
+                // Toast message for user feedback
                 Toast.makeText(context, "Days Saved!", Toast.LENGTH_SHORT).show()
-
-                // Log the save action
                 Log.d("DaySelection", "Days saved to preferences: ${selectedState.toList()}")
             }) {
                 Text("Save", color = Color.White)
@@ -101,26 +97,4 @@ fun DayButton(day: String, isSelected: Boolean, onClick: () -> Unit) {
             style = TextStyle(color = textColor, fontSize = 18.sp)
         )
     }
-}
-
-//Save the selected days to SharedPreferences
-fun saveSelectedDaysToPreferences(context: Context, selectedDays: List<String>) {
-    val sharedPreferences = context.getSharedPreferences("reminder_prefs", Context.MODE_PRIVATE)
-    sharedPreferences.edit().apply {
-        putStringSet("selected_days", selectedDays.toSet())
-        apply()
-    }
-    Log.d("Preferences", "Saved days: ${selectedDays.toSet()}")
-}
-
-
-@Composable
-@Preview
-fun DaySelectionDialogPreview() {
-//    DaySelectionDialog(
-////        context = LocalContext.current,
-////        selectedDays = listOf("Monday", "Wednesday", "Friday"),
-////        onSave = { saveSelectedDaysToPreferences(LocalContext, it) },
-////        onDismiss = {}
-//    )
 }

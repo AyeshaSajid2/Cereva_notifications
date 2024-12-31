@@ -29,6 +29,9 @@
             android:exported="true">
         </receiver>
 
+        <receiver android:name="cereva.alarms.NotificationReceiver"
+            android:exported="true">
+        </receiver>
 
         <activity
             android:name="cereva.MainActivity"
@@ -41,6 +44,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="cereva.MainScreens.FullScreenActivity"
+            android:theme="@style/Theme.Cereva"
+            />
+
     </application>
 
 </manifest>

@@ -32,6 +32,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import cereva.alarms.NotificationScheduler
 import cereva.alarms.scheduleReminders
 import cereva.alarms.showNotification
 import cereva.utills.PreferencesManager
@@ -51,6 +52,7 @@ fun HomePage(navController: NavController, context: Context) {
     val savedDays = preferencesManager.getSelectedDays()
     val savedFrequency = preferencesManager.getFrequency()
     val savedIntervals = preferencesManager.getIntervals()
+    val category = preferencesManager.getCategory()
 
     // Centering all elements inside a column
     Column(
@@ -90,10 +92,29 @@ fun HomePage(navController: NavController, context: Context) {
             val intervalsToUse = if (intervals.isEmpty()) savedIntervals else intervals
             val frequencyToUse = if (frequency == 0) savedFrequency else frequency
 
-            if (daysToUse.isNotEmpty() && intervalsToUse.isNotEmpty() && frequencyToUse >= 15) {
-                scheduleReminders(context, daysToUse, intervalsToUse, frequencyToUse)
-                Toast.makeText(context, "Reminders Scheduled Successfully", Toast.LENGTH_SHORT).show()
-            } else if (daysToUse.isEmpty()) {
+            if ( intervalsToUse.isNotEmpty() ) {
+                if (category == "Daily" && frequencyToUse >= 15 && daysToUse.isNotEmpty()) {
+                    scheduleReminders(context, daysToUse, intervalsToUse, frequencyToUse)
+                    Log.d("HomePage", "Selected Days to use: $daysToUse")
+                    Log.d("HomePage", "Intervals to use : $intervalsToUse")
+                    Log.d("HomePage", "Frequency to use : $frequencyToUse")
+                    Toast.makeText(context, "Reminders Scheduled Suc cessfully", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    // Initialize the NotificationScheduler
+                    val notificationScheduler = NotificationScheduler(context)
+
+                    // Schedule notifications
+                    notificationScheduler.dailyscheduleNotifications()
+
+                    // Log the selected days, intervals, and frequency
+                    // Show success toast
+                    Toast.makeText(context, "Reminders Scheduled Successfully for a day", Toast.LENGTH_SHORT).show()
+                }
+
+
+            }
+            else if (daysToUse.isEmpty()) {
                 Toast.makeText(context, "Please select days", Toast.LENGTH_SHORT).show()
             } else if (intervalsToUse.isEmpty()) {
                 Toast.makeText(context, "Please select Interval", Toast.LENGTH_SHORT).show()
@@ -118,17 +139,22 @@ fun HomePage(navController: NavController, context: Context) {
                 },
                 onCancel = { isDialogOpen = DialogType.None }
             )
-            DialogType.Frequency -> FrequencySelectionScreen(
-                context = context,
-                initialFrequency = frequency,
-                onFrequencyChange = { newFrequency -> frequency = newFrequency },
-                onDismiss = { isDialogOpen = DialogType.None }
-            )
+            DialogType.Frequency -> {
+                val preferencesManager = PreferencesManager(context)
+                FrequencySelectionScreen(
+                    context = context,
+                    preferencesManager = preferencesManager, // Pass the PreferencesManager
+                    onDismiss = { isDialogOpen = DialogType.None }
+                )
+            }
+
             DialogType.None -> {}
             else -> {}
         }
     }
 }
+
+
 
 @Composable
 fun RoundedButton(text: String, onClick: () -> Unit) {
