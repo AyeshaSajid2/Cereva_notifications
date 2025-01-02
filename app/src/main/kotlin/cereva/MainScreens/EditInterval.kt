@@ -35,7 +35,6 @@ fun EditIntervalsDialog(
     var selectedEndTime by remember { mutableStateOf(LocalTime.now().plusHours(1)) }
     var intervalBeingEditedIndex by remember { mutableStateOf(-1) }
 
-    val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
     // Time Picker Dialogs
     if (showStartTimePicker) {
@@ -87,7 +86,7 @@ fun EditIntervalsDialog(
     AlertDialog(
         onDismissRequest = {},
         title = {
-            Text("Edit Intervals", color = DarkGreen)
+            Text("Save Intervals", color = DarkGreen)
         },
         text = {
             Column(

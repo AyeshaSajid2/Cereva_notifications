@@ -1,7 +1,6 @@
 package cereva.utills
 
 import android.content.Context
-import android.provider.Settings.Secure.putInt
 import androidx.core.content.edit
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -83,6 +82,13 @@ class PreferencesManager(context: Context) {
 
     fun getCategory(): String {
         return sharedPreferences.getString("selected_category", "Daily") ?: "Daily"
+    }
+    // Function to get the start time of a specific interval by index
+    fun getStartTime(index: Int): LocalTime? {
+        val startTimeString = sharedPreferences.getString("$KEY_START_TIME_PREFIX$index", null)
+        return startTimeString?.let {
+            LocalTime.parse(it, DateTimeFormatter.ofPattern("HH:mm"))
+        }
     }
 
 }

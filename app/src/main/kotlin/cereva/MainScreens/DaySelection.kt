@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cereva.ui.theme.DarkGreen
+import cereva.ui.theme.LightGreen
 import cereva.utills.PreferencesManager
 
 @Composable
@@ -48,15 +50,15 @@ fun DaySelectionDialog(
                 Toast.makeText(context, "Days Saved!", Toast.LENGTH_SHORT).show()
                 Log.d("DaySelection", "Days saved to preferences: ${selectedState.toList()}")
             }) {
-                Text("Save", color = Color.White)
+                Text("Save", color = LightGreen)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel", color = Color.White)
+                Text("Cancel", color = Color.Gray)
             }
         },
-        title = { Text("Select Days", color = Color.White) },
+        title = { Text("Select Days", color = DarkGreen) },
         text = {
             Column {
                 daysOfWeek.forEach { day ->

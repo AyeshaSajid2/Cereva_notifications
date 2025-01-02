@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import cereva.ui.theme.DarkGreen
 import cereva.ui.theme.MediumGreen
 import com.fremanrobots.cereva.R
 import kotlinx.coroutines.delay
@@ -87,7 +88,7 @@ fun SplashScreen(navController: NavController) {
             Box(modifier = Modifier.padding(top = 150.dp)) {
                 Text(
                     text = "Cerebral Co-Pilot",
-                    color = Color.Green,
+                    color = DarkGreen,
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold
                 )

@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.fremanrobots.cereva.R
 import java.util.*
@@ -69,27 +67,48 @@ class KeepAliveService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // If the action is to stop the service
         if (intent?.action == ACTION_STOP_SERVICE) {
             stopSelf() // Stop the service
+
+            // Remove the notification
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(NOTIFICATION_ID) // Remove the notification
+            notificationManager.cancel(NOTIFICATION_ID)
+
+            // Cancel all scheduled notifications
+            cancelScheduledNotifications()
+
+            // Log or notify user that service has stopped
         }
         return START_STICKY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Cancel scheduled notifications when service is destroyed
+        cancelScheduledNotifications()
+    }
+
+    private fun cancelScheduledNotifications() {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, NotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.cancel(pendingIntent)
+
+        // Optionally cancel any specific notifications by ID
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // Cancel the scheduled notifications when the service is destroyed
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.cancel(pendingIntent) // Cancel any scheduled alarms
-    }
+
 }
 
 // BroadcastReceiver to handle notifications

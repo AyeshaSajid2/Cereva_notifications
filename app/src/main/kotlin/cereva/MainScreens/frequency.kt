@@ -14,6 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
+import cereva.ui.theme.DarkGreen
 import cereva.utills.PreferencesManager
 
 @Composable
@@ -28,7 +29,7 @@ fun FrequencySelectionScreen(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Select Frequency", color = Color.White) },
+        title = { Text("Select Frequency",color = DarkGreen) },
         text = {
             Column(
                 modifier = Modifier
