@@ -1,5 +1,6 @@
 package cereva.alarms
 
+
 import android.app.AlarmManager
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,6 +16,8 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 import kotlin.random.Random
+import android.provider.Settings
+
 
 class NotificationScheduler(private val context: Context) {
 
@@ -31,10 +34,18 @@ class NotificationScheduler(private val context: Context) {
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        // Check if exact alarms are permitted (API 31+)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
             if (!alarmManager.canScheduleExactAlarms()) {
-                Toast.makeText(context, "Permission Issue: Exact alarms not allowed.", Toast.LENGTH_SHORT).show()
+                // Show a message to the user
+                Toast.makeText(context, "Permission required for exact alarms.", Toast.LENGTH_SHORT).show()
+
+                // Direct the user to the settings page
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
                 return
             }
         }

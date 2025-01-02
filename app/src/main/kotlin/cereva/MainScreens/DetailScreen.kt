@@ -32,6 +32,8 @@ fun DetailScreen() {
     // Fetch selected days, frequency, and intervals using safe function calls
     val selectedDays = remember { preferencesManager.getSelectedDays() }
     val frequency = remember { preferencesManager.getFrequency() }
+    val category = remember { preferencesManager.getCategory() }
+
     val intervals = remember { fetchIntervals(preferencesManager) } // Safe call to get intervals
 
     // Log the values to debug
@@ -92,7 +94,24 @@ fun DetailScreen() {
                     )
                 }
             }
-
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF4CAF50)), // Green color
+                elevation = CardDefaults.cardElevation(8.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Category:",
+                        style = TextStyle(fontSize = 20.sp, color = Color.White)
+                    )
+                    BasicText(
+                        text = "$category ",
+                        style = TextStyle(fontSize = 16.sp, color = Color.White)
+                    )
+                }
+            }
             // Display Intervals (with safe data)
             intervals.forEachIndexed { index, interval ->
                 val startTimeString = interval["start"]?.toString() ?: return@forEachIndexed

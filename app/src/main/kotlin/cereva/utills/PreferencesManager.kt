@@ -1,7 +1,6 @@
 package cereva.utills
 
 import android.content.Context
-import android.provider.Settings.Secure.putInt
 import androidx.core.content.edit
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

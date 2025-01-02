@@ -37,6 +37,7 @@ import cereva.alarms.scheduleReminders
 import cereva.alarms.showNotification
 import cereva.utills.PreferencesManager
 
+
 @Composable
 fun HomePage(navController: NavController, context: Context) {
     var selectedDays by remember { mutableStateOf(listOf<String>()) }
@@ -93,12 +94,12 @@ fun HomePage(navController: NavController, context: Context) {
             val frequencyToUse = if (frequency == 0) savedFrequency else frequency
 
             if ( intervalsToUse.isNotEmpty() ) {
-                if (category == "Daily" && frequencyToUse >= 15 && daysToUse.isNotEmpty()) {
+                if (category == "Weekly" && frequencyToUse >= 15 && daysToUse.isNotEmpty()) {
                     scheduleReminders(context, daysToUse, intervalsToUse, frequencyToUse)
                     Log.d("HomePage", "Selected Days to use: $daysToUse")
                     Log.d("HomePage", "Intervals to use : $intervalsToUse")
                     Log.d("HomePage", "Frequency to use : $frequencyToUse")
-                    Toast.makeText(context, "Reminders Scheduled Suc cessfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Reminders Scheduled Successfully", Toast.LENGTH_SHORT).show()
                 }
                 else {
                     // Initialize the NotificationScheduler
