@@ -67,7 +67,7 @@ fun EditIntervalsDialog(
                     if (updatedIntervals.size < 3) {
                         updatedIntervals.add(mapOf("start" to selectedStartTime, "end" to selectedEndTime))
                     } else {
-                        Toast.makeText(context, "You can only add up to 3 intervals", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "You can only add up to 3 Slots", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     // Editing existing interval
@@ -86,7 +86,7 @@ fun EditIntervalsDialog(
     AlertDialog(
         onDismissRequest = {},
         title = {
-            Text("Save Intervals", color = DarkGreen)
+            Text("Save Slots", color = DarkGreen)
         },
         text = {
             Column(
@@ -124,13 +124,13 @@ fun EditIntervalsDialog(
                             intervalBeingEditedIndex = -1
                             showStartTimePicker = true
                         } else {
-                            Toast.makeText(context, "You can only add up to 3 intervals", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "You can only add up to 3 Slots", Toast.LENGTH_SHORT).show()
                         }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = LightGreen),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Add Interval", color = Color.Black)
+                    Text("Add Slots", color = Color.Black)
                 }
             }
         },
@@ -139,9 +139,9 @@ fun EditIntervalsDialog(
                 if (validateIntervals(updatedIntervals)) {
                     saveIntervalsToSharedPreferences(context, updatedIntervals)
                     onSaveIntervals()
-                    Toast.makeText(context, "Intervals saved successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Slot saved successfully", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Please ensure all intervals are valid", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Please ensure all Slots are valid", Toast.LENGTH_SHORT).show()
                 }
             }) {
                 Text("Save", color = LightGreen)
@@ -199,12 +199,7 @@ fun saveIntervalsToSharedPreferences(context: Context, intervals: List<Map<Strin
     // Apply the changes to SharedPreferences
     editor.apply()
 
-    // Show Toast with saved intervals data
-    Toast.makeText(
-        context,
-        "Saved Intervals: \n${savedIntervals.joinToString("\n")}",
-        Toast.LENGTH_LONG
-    ).show()
+
 }
 
 // Function to load intervals from SharedPreferences

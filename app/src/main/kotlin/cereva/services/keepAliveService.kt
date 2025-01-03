@@ -6,7 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import cereva.alarms.NotificationScheduler
+import cereva.cancelation.cancelWeeklyReminders
 import com.fremanrobots.cereva.R
 import java.util.*
 
@@ -41,7 +44,6 @@ class KeepAliveService : Service() {
     }
 
     private fun getServiceNotification(): Notification {
-        // Intent to stop the service when button is clicked
         val stopServiceIntent = Intent(this, KeepAliveService::class.java).apply {
             action = ACTION_STOP_SERVICE
         }
@@ -61,7 +63,7 @@ class KeepAliveService : Service() {
             .addAction(
                 R.drawable.icon, // Icon for the button
                 "Stop Service", // Button text
-                stopServicePendingIntent // Action to stop the service
+                stopServicePendingIntent
             )
             .build()
     }
@@ -74,41 +76,23 @@ class KeepAliveService : Service() {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.cancel(NOTIFICATION_ID)
 
-            // Cancel all scheduled notifications
-            cancelScheduledNotifications()
-
             // Log or notify user that service has stopped
+            Log.d("KeepAliveService", "Service stopped")
         }
         return START_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        // Cancel scheduled notifications when service is destroyed
-        cancelScheduledNotifications()
-    }
-
-    private fun cancelScheduledNotifications() {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(this, NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-        alarmManager.cancel(pendingIntent)
-
-        // Optionally cancel any specific notifications by ID
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancelAll()
+        // Replace `context` with `this` or `applicationContext`
+        cancelWeeklyReminders(this)
+        val notificationScheduler = NotificationScheduler(this)
+        notificationScheduler.cancelDailyScheduledNotifications()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
-
-
 }
 
 // BroadcastReceiver to handle notifications

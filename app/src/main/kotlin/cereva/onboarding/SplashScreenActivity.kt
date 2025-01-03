@@ -1,5 +1,6 @@
 package cereva.utills
 
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -24,21 +25,16 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
-    var showRipple by remember { mutableStateOf(false) }
-    var showIcon by remember { mutableStateOf(false) }
-    var showText by remember { mutableStateOf(false) }
+    var showCerevaAndIcon by remember { mutableStateOf(true) }
+    var showCoPilotText by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        showRipple = true
-        delay(3000)  // Show ripple for 3 seconds
-        showRipple = false
-        showIcon = true
-        delay(3000)  // Show icon for 3 seconds
-        showIcon = false
-        showText = true
-        delay(3000)  // Show text for 3 seconds
+        delay(3000)  // Show "Cereva" and icon for 3 seconds
+        showCerevaAndIcon = false
+        showCoPilotText = true
+        delay(3000)  // Show "Cerebral Co-Pilot" text for 3 seconds
 
-        // Directly navigate to the home screen
+        // Navigate to the home screen after delay
         navController.navigate("home") {
             popUpTo("splash") { inclusive = true }
         }
@@ -50,38 +46,31 @@ fun SplashScreen(navController: NavController) {
             .background(Color.Black),
         contentAlignment = Alignment.Center
     ) {
+        // "Cereva" text and icon visible for 3 seconds
         AnimatedVisibility(
-            visible = showRipple,
+            visible = showCerevaAndIcon,
             enter = fadeIn(animationSpec = tween(1000)),
             exit = fadeOut(animationSpec = tween(1000))
         ) {
-            Box(modifier = Modifier.padding(top = 150.dp))
-            {
-                Text(
-                    text = "Cereva",
-                    color = MediumGreen,
-                    fontSize = 38.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
-
-        AnimatedVisibility(
-            visible = showIcon,
-            enter = fadeIn(animationSpec = tween(1000)),
-            exit = fadeOut(animationSpec = tween(1000))
-        ) {
-            Box(modifier = Modifier.padding(bottom = 200.dp)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
                     painter = painterResource(id = R.drawable.logo3),
                     contentDescription = "App Icon",
                     modifier = Modifier.size(300.dp)
                 )
+                Text(
+                    text = "Cereva",
+                    color = MediumGreen,
+                    fontSize = 38.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
             }
         }
 
+        // "Cerebral Co-Pilot" text visible for 3 seconds after "Cereva" and icon disappear
         AnimatedVisibility(
-            visible = showText,
+            visible = showCoPilotText,
             enter = fadeIn(animationSpec = tween(1000)),
             exit = fadeOut(animationSpec = tween(1000))
         ) {
@@ -96,3 +85,4 @@ fun SplashScreen(navController: NavController) {
         }
     }
 }
+

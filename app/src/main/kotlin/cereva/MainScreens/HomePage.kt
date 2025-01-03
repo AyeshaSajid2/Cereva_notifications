@@ -73,17 +73,19 @@ fun HomePage(navController: NavController, context: Context) {
         // Heading text
 
         // Buttons for selecting days, interval, frequency, and navigating to the detail screen
-        RoundedButton("Days") { isDialogOpen = DialogType.Days }
-        Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
 
-        RoundedButton("Interval") { isDialogOpen = DialogType.Interval }
+        RoundedButton("Slots") { isDialogOpen = DialogType.Interval }
         Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
 
         RoundedButton("Frequency") { isDialogOpen = DialogType.Frequency }
         Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
+        // Buttons for selecting days, interval, frequency, and navigating to the detail screen
+
+        RoundedButton("Days") { isDialogOpen = DialogType.Days }
+        Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
 
         // Detail Screen Button styled the same as other buttons
-        RoundedButton("Detail Screen") {
+        RoundedButton("Preview") {
             navController.navigate("detail") // Navigation to Detail Screen
         }
         Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
@@ -143,7 +145,7 @@ fun HomePage(navController: NavController, context: Context) {
                 else if (daysToUse.isEmpty()) {
                     Toast.makeText(context, "Please select days", Toast.LENGTH_SHORT).show()
                 } else if (intervalsToUse.isEmpty()) {
-                    Toast.makeText(context, "Please select Interval", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Please select Slots", Toast.LENGTH_SHORT).show()
                 } else if (frequencyToUse < 15) {
                     Toast.makeText(context, "Frequency duration lesser than minimum allowed value", Toast.LENGTH_SHORT).show()
                 }
@@ -164,7 +166,7 @@ fun HomePage(navController: NavController, context: Context) {
                 context = context,
                 intervals = intervals,
                 onSaveIntervals = {
-                    Toast.makeText(context, "Intervals saved successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Slots saved successfully", Toast.LENGTH_SHORT).show()
                     isDialogOpen = DialogType.None
                 },
                 onCancel = { isDialogOpen = DialogType.None }

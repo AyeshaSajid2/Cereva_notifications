@@ -1,6 +1,7 @@
 package  cereva.alarms
 
 
+import android.app.ActivityManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -141,6 +142,7 @@ fun showNotification(context: Context, title: String, message: String) {
     val channelId = "reminder_notifications"
     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+    // Create Notification Channel for Android O and above
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val channel = NotificationChannel(
             channelId,
@@ -153,20 +155,21 @@ fun showNotification(context: Context, title: String, message: String) {
         notificationManager.createNotificationChannel(channel)
     }
 
-    val intent = Intent(context, FullScreenActivity::class.java).apply {
+    // Intent to launch the FullScreenActivity
+    val fullScreenIntent = Intent(context, FullScreenActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        putExtra("NOTIFICATION_MESSAGE", message) // Pass the notification message to the activity
+        putExtra("NOTIFICATION_MESSAGE", message) // Pass the message to the activity
     }
 
     val pendingIntent = PendingIntent.getActivity(
         context,
         System.currentTimeMillis().toInt(), // Unique request code
-        intent,
+        fullScreenIntent,
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
 
     val customSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-    val notification = NotificationCompat.Builder(context, channelId)
+    val notificationBuilder = NotificationCompat.Builder(context, channelId)
         .setSmallIcon(R.drawable.ic_notification_icon_round)
         .setContentTitle(title)
         .setContentText(message)
@@ -174,17 +177,29 @@ fun showNotification(context: Context, title: String, message: String) {
         .setSound(customSoundUri)
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)
-        .build()
 
-    // Wake the screen
-    val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-    val wakeLock = powerManager.newWakeLock(
-        PowerManager.SCREEN_BRIGHT_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
-        "app:NotificationWakeLock"
-    )
-    wakeLock.acquire(3000) // Wake for 3 seconds
+    // Check if the app is in the foreground
+    val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    val appProcesses = activityManager.runningAppProcesses
 
-    notificationManager.notify(System.currentTimeMillis().toInt(), notification)
+    val isAppInForeground = appProcesses.any { processInfo ->
+        processInfo.processName == context.packageName &&
+                processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+    }
+
+    if (isAppInForeground) {
+        // App is in the foreground - start FullScreenActivity directly with sound
+        context.startActivity(fullScreenIntent)
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        val wakeLock = powerManager.newWakeLock(
+            PowerManager.SCREEN_BRIGHT_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+            "app:NotificationWakeLock"
+        )
+        wakeLock.acquire(3000) // Wake the screen for 3 seconds
+    } else {
+        // App is in the background - show the notification
+        notificationManager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
+    }
 }
 
 

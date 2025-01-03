@@ -94,9 +94,45 @@ class NotificationScheduler(private val context: Context) {
             }
         }
     }
+    fun cancelDailyScheduledNotifications() {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intervals = preferencesManager.getIntervals()
 
+        intervals.forEach { interval ->
+            val startTime = interval["start"] as? LocalTime
+            val endTime = interval["end"] as? LocalTime
+
+            if (startTime != null && endTime != null) {
+                var notificationTime = startTime
+                while (notificationTime != null && !notificationTime.isAfter(endTime)) {
+                    val intent = Intent(context, NotificationReceiver::class.java).apply {
+                        action = "SHOW_NOTIFICATION"
+                    }
+
+                    val pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        notificationTime.toSecondOfDay(),
+                        intent,
+                        PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+                    )
+
+                    if (pendingIntent != null) {
+                        alarmManager.cancel(pendingIntent)
+                        pendingIntent.cancel()
+                    }
+
+                    val frequency = preferencesManager.getFrequency()
+                    notificationTime = notificationTime.plus(frequency.toLong(), ChronoUnit.MINUTES)
+                }
+            }
+        }
+
+        Toast.makeText(context, "Scheduled notifications canceled.", Toast.LENGTH_SHORT).show()
+    }
     private fun getRandomMessage(): String {
         val messages = context.resources.getStringArray(R.array.reminder_messages)
         return messages[Random.nextInt(messages.size)]
     }
 }
+
+
