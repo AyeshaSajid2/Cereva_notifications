@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
         requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 Toast.makeText(this, "Notification Permission Granted", Toast.LENGTH_SHORT).show()
-                startKeepAliveService()
+
             } else {
                 Toast.makeText(this, "Notification Permission Denied", Toast.LENGTH_SHORT).show()
             }
@@ -36,12 +36,7 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-            } else {
-                startKeepAliveService()
             }
-        } else {
-            // For devices below Android 13, start the service directly
-            startKeepAliveService()
         }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
@@ -51,7 +46,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun startKeepAliveService() {
+    public fun startKeepAliveService() {
         val serviceIntent = Intent(this, KeepAliveService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(serviceIntent)

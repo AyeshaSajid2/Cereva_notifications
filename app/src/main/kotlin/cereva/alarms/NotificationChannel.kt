@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
 
-
 fun createNotificationChannel(context: Context) {
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
         val channelId = "reminder_channel"

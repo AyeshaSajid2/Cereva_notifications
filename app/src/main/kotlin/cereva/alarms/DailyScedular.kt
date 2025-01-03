@@ -33,16 +33,6 @@ class NotificationScheduler(private val context: Context) {
         Log.d("HomePage", "Frequency to use : $frequency")
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-       /** // Check if exact alarms are permitted (API 31+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (!alarmManager.canScheduleExactAlarms()) {
-                Toast.makeText(context, "Permission Issue: Exact alarms not allowed.", Toast.LENGTH_SHORT).show()
-                return
-            }
-        }*/
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
@@ -94,9 +84,45 @@ class NotificationScheduler(private val context: Context) {
             }
         }
     }
+    fun cancelDailyScheduledNotifications() {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intervals = preferencesManager.getIntervals()
 
+        intervals.forEach { interval ->
+            val startTime = interval["start"] as? LocalTime
+            val endTime = interval["end"] as? LocalTime
+
+            if (startTime != null && endTime != null) {
+                var notificationTime = startTime
+                while (notificationTime != null && !notificationTime.isAfter(endTime)) {
+                    val intent = Intent(context, NotificationReceiver::class.java).apply {
+                        action = "SHOW_NOTIFICATION"
+                    }
+
+                    val pendingIntent = PendingIntent.getBroadcast(
+                        context,
+                        notificationTime.toSecondOfDay(),
+                        intent,
+                        PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+                    )
+
+                    if (pendingIntent != null) {
+                        alarmManager.cancel(pendingIntent)
+                        pendingIntent.cancel()
+                    }
+
+                    val frequency = preferencesManager.getFrequency()
+                    notificationTime = notificationTime.plus(frequency.toLong(), ChronoUnit.MINUTES)
+                }
+            }
+        }
+
+        Toast.makeText(context, "Scheduled notifications canceled.", Toast.LENGTH_SHORT).show()
+    }
     private fun getRandomMessage(): String {
         val messages = context.resources.getStringArray(R.array.reminder_messages)
         return messages[Random.nextInt(messages.size)]
     }
 }
+
+

@@ -102,21 +102,4 @@ class NotificationReceiver : BroadcastReceiver() {
     }
 
     // Create notification channel for Android Oreo and above
-    private fun createNotificationChannel(context: Context, soundUri: Uri) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channelId = "reminder_channel"
-            val channelName = "Reminder Notifications"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(channelId, channelName, importance).apply {
-                description = "Channel for reminder notifications"
-                enableLights(true)
-                lightColor = Color.RED
-                enableVibration(true)
-                vibrationPattern = longArrayOf(0, 500, 100, 500)
-                setSound(soundUri, null)  // Attach the custom sound to the channel
-            }
-            val notificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager?.createNotificationChannel(channel)
-        }
-    }
 }

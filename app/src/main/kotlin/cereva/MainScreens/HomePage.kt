@@ -2,7 +2,9 @@
 
 package cereva.MainScreens
 
+import android.app.AlarmManager
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -40,8 +42,25 @@ import cereva.utills.PreferencesManager
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
+import java.util.Calendar
+import android.app.PendingIntent
+import android.bluetooth.BluetoothAdapter
+import cereva.bluetooth.BluetoothUtils
+import android.media.audiofx.EnvironmentalReverb
+import android.os.Build
+import android.provider.Settings
+import androidx.core.content.ContextCompat.startForegroundService
+import cereva.services.KeepAliveService
+import sendNotificationToSmartwatch
 
-
+fun startKeepAliveService(context: Context) {
+    val serviceIntent = Intent(context, KeepAliveService::class.java)  // Use context to create the Intent
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        context.startForegroundService(serviceIntent)  // Use context to call startForegroundService
+    } else {
+        context.startService(serviceIntent)  // Use context to call startService
+    }
+}
 
 
 @Composable
@@ -73,17 +92,19 @@ fun HomePage(navController: NavController, context: Context) {
         // Heading text
 
         // Buttons for selecting days, interval, frequency, and navigating to the detail screen
-        RoundedButton("Days") { isDialogOpen = DialogType.Days }
-        Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
 
-        RoundedButton("Interval") { isDialogOpen = DialogType.Interval }
+        RoundedButton("Slots") { isDialogOpen = DialogType.Interval }
         Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
 
         RoundedButton("Frequency") { isDialogOpen = DialogType.Frequency }
         Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
+        // Buttons for selecting days, interval, frequency, and navigating to the detail screen
+
+        RoundedButton("Days") { isDialogOpen = DialogType.Days }
+        Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
 
         // Detail Screen Button styled the same as other buttons
-        RoundedButton("Detail Screen") {
+        RoundedButton("Preview") {
             navController.navigate("detail") // Navigation to Detail Screen
         }
         Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
@@ -114,14 +135,29 @@ fun HomePage(navController: NavController, context: Context) {
 
                 if (intervalsToUse.isNotEmpty() ) {
                     if(startTimeMillis!! >= currentTime ){
-                        if (category == "Weekly" && frequencyToUse >= 15 && daysToUse.isNotEmpty()) {
+                        if (category == "Weekly" && daysToUse.isNotEmpty()) {
                             scheduleReminders(context, daysToUse, intervalsToUse, frequencyToUse)
                             Log.d("HomePage", "Selected Days to use: $daysToUse")
                             Log.d("HomePage", "Intervals to use : $intervalsToUse")
                             Log.d("HomePage", "Frequency to use : $frequencyToUse")
                             Toast.makeText(context, "Reminders Scheduled Successfully", Toast.LENGTH_SHORT).show()
                         }
-                        else {
+                        else if (frequencyToUse <= 10){
+                            startKeepAliveService(context);
+                            // Initialize the NotificationScheduler
+                            val notificationScheduler = NotificationScheduler(context)
+
+                            // Schedule notifications
+                            notificationScheduler.dailyscheduleNotifications()
+
+                            // Log the selected days, intervals, and frequency
+                            // Show success toast
+                            Toast.makeText(context, "Reminders Scheduled Successfully for a day with foreground activity", Toast.LENGTH_SHORT).show()
+
+                        }
+                        else if (frequencyToUse > 10)
+                        {
+                            startKeepAliveService(context);
                             // Initialize the NotificationScheduler
                             val notificationScheduler = NotificationScheduler(context)
 
@@ -131,6 +167,7 @@ fun HomePage(navController: NavController, context: Context) {
                             // Log the selected days, intervals, and frequency
                             // Show success toast
                             Toast.makeText(context, "Reminders Scheduled Successfully for a day", Toast.LENGTH_SHORT).show()
+
                         }
 
                     }
@@ -143,7 +180,7 @@ fun HomePage(navController: NavController, context: Context) {
                 else if (daysToUse.isEmpty()) {
                     Toast.makeText(context, "Please select days", Toast.LENGTH_SHORT).show()
                 } else if (intervalsToUse.isEmpty()) {
-                    Toast.makeText(context, "Please select Interval", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Please select Slots", Toast.LENGTH_SHORT).show()
                 } else if (frequencyToUse < 15) {
                     Toast.makeText(context, "Frequency duration lesser than minimum allowed value", Toast.LENGTH_SHORT).show()
                 }
@@ -153,6 +190,27 @@ fun HomePage(navController: NavController, context: Context) {
             }
         }
 
+        Spacer(modifier = Modifier.height(24.dp)) // Add blank space at the top
+
+        RoundedButton("Save Reminders to Smart Watch") {
+            val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            if (bluetoothAdapter == null) {
+                Toast.makeText(context, "Bluetooth is not supported on this device", Toast.LENGTH_SHORT).show()
+            } else if (!bluetoothAdapter.isEnabled) {
+                // Navigate to Bluetooth settings
+                Toast.makeText(context, "Please enable Bluetooth", Toast.LENGTH_SHORT).show()
+                context.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))  // Corrected reference
+            } else {
+                // Pair with smartwatch
+                if (BluetoothUtils.pairWithSmartwatch(context, bluetoothAdapter)) {
+                    Toast.makeText(context, "Smartwatch paired successfully", Toast.LENGTH_SHORT).show()
+                    sendNotificationToSmartwatch(context, "This is your smartwatch notification!")
+
+                } else {
+                    Toast.makeText(context, "Failed to pair with smartwatch", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         // Dialogs to handle Day, Interval, Frequency selection
         when (isDialogOpen) {
             DialogType.Days -> DaySelectionDialog(
@@ -164,7 +222,7 @@ fun HomePage(navController: NavController, context: Context) {
                 context = context,
                 intervals = intervals,
                 onSaveIntervals = {
-                    Toast.makeText(context, "Intervals saved successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Slots saved successfully", Toast.LENGTH_SHORT).show()
                     isDialogOpen = DialogType.None
                 },
                 onCancel = { isDialogOpen = DialogType.None }
@@ -185,7 +243,6 @@ fun HomePage(navController: NavController, context: Context) {
 }
 
 
-
 @Composable
 fun RoundedButton(text: String, onClick: () -> Unit) {
     Button(
@@ -202,6 +259,7 @@ fun RoundedButton(text: String, onClick: () -> Unit) {
         )
     }
 }
+
 
 enum class DialogType {
     None, Days, Interval, Frequency, Details
