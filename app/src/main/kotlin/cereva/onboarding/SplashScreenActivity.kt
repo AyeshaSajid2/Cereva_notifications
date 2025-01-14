@@ -35,7 +35,7 @@ fun SplashScreen(navController: NavController) {
         delay(3000)  // Show "Cerebral Co-Pilot" text for 3 seconds
 
         // Navigate to the home screen after delay
-        navController.navigate("home") {
+        navController.navigate("plans") {
             popUpTo("splash") { inclusive = true }
         }
     }

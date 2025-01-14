@@ -2,7 +2,6 @@
 
 package cereva.MainScreens
 
-import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -37,19 +36,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import cereva.alarms.NotificationScheduler
 import cereva.alarms.scheduleReminders
-import cereva.alarms.showNotification
 import cereva.utills.PreferencesManager
 import java.time.LocalDate
-import java.time.LocalTime
 import java.time.ZoneId
-import java.util.Calendar
-import android.app.PendingIntent
 import android.bluetooth.BluetoothAdapter
 import cereva.bluetooth.BluetoothUtils
-import android.media.audiofx.EnvironmentalReverb
 import android.os.Build
 import android.provider.Settings
-import androidx.core.content.ContextCompat.startForegroundService
 import cereva.services.KeepAliveService
 import sendNotificationToSmartwatch
 

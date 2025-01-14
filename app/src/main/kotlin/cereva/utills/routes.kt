@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import cereva.MainScreens.DetailScreen
 import cereva.MainScreens.HomePage
+import cereva.onboarding.PlansPageScreen
 
 @Composable
 fun MyAppNavHost() {
@@ -16,6 +17,9 @@ fun MyAppNavHost() {
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") {
             SplashScreen(navController = navController)
+        }
+        composable("plans") {
+            PlansPageScreen(navController, context)
         }
         composable("home") {
             HomePage(navController, context = context)  // Pass context to HomePage
